@@ -10,10 +10,38 @@ public class Main {
 
     public static void main(String[] args) {
         Main mainClass = new Main();
-        mainClass.readCSVFile();
+        List<Integer> csvFile = mainClass.readCSVFile();
+        List<Integer> dividedList = mainClass.divide(csvFile);
+        mainClass.printNumbersList(dividedList);
     }
 
-    public void readCSVFile() {
+    public void seprateIntoChunks(List<Integer> integerList) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type in a divider:");
+        int divider = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Type in, in how many chunks you want to split it:");
+        int chunk = scanner.nextInt();
+        scanner.nextLine();
+        integerList.size();
+    }
+
+    public List<Integer> divide(List<Integer> numbersList) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type in a divider:");
+        int divider = scanner.nextInt();
+        List<Integer> dividedList = new ArrayList<>();
+        scanner.nextLine();
+        for (int i = 0; i < numbersList.size(); i++) {
+            if (numbersList.get(i) % divider == 0) {
+                int tmp = numbersList.get(i);
+                dividedList.add(tmp);
+            }
+        }
+        return dividedList;
+    }
+
+    public List<Integer> readCSVFile() {
         List<Integer> numbersList = null;
         try {
             Scanner scanner = new Scanner(new File("numbers.csv"));
@@ -31,6 +59,11 @@ public class Main {
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         }
+
+        return numbersList;
+    }
+
+    public void printNumbersList(List<Integer> numbersList) {
         System.out.println("Numbers:");
         for (int i = 0; i < numbersList.size(); i++) {
             System.out.println(numbersList.get(i));
