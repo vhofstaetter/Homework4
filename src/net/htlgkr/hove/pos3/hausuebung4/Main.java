@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
+        Main mainClass = new Main();
+        mainClass.readCSVFile();
     }
 
     public void readCSVFile() {
@@ -22,17 +23,19 @@ public class Main {
                 String line = scanner.nextLine();
                 String[] parts = line.split(":");
                 for (int i = 0; i < parts.length; i++) {
-
-                    try {
-                        numbersList.add(Integer.parseInt(parts[i]));
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
+                    if (parts[i] != null && parts[i].equals("") && parts[i].matches("[+-]?\\d*(\\.\\d+)?")) {
+                        int tmp = Integer.parseInt(parts[i]);
+                        numbersList.add(tmp);
                     }
                 }
             }
             scanner.close();
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
+        }
+        System.out.println("Numbers:");
+        for (int i = 0; i < numbersList.size(); i++) {
+            System.out.println(numbersList.get(i));
         }
     }
 }
