@@ -40,7 +40,7 @@ public class GausscheSumMain {
         do {
             booleanList = futuresList.stream().map(Future::isDone).toList();
         } while ((booleanList.contains(false)));
-
+        System.out.println("The sum is:");
         System.out.println(futuresList.stream().map(integerFuture -> {
             try {
                 return integerFuture.get();
