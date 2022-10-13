@@ -14,15 +14,22 @@ public class GausscheSumMain {
         Scanner scanner = new Scanner(System.in);
         System.out.println("How many number do you want to have added?");
         int totalNumbers = scanner.nextInt();
-        int chunks = totalNumbers / 100;
-        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(chunks);
+        int chunks = 0;
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1);
         List<GausscheSum> gausscheSumList = new ArrayList<>();
         gausscheSumList.add(new GausscheSum(1, 100));
-        int chunkCounter = 1;
-        while (chunkCounter <= chunks) {
-            int minimum = chunkCounter * 100 + 1;
-            gausscheSumList.add(new GausscheSum(minimum, minimum + 99));
+        chunks++;
+        boolean chunking = true;
+        while (chunking) {
+            int og = 100 * (chunks + 1);
+            if (og > totalNumbers) {
+                og = totalNumbers;
+                chunking = false;
+            }
+            gausscheSumList.add(new GausscheSum((100 * (chunks)) + 1, og));
+            chunks++;
         }
+
         List<Future<Integer>> futuresList;
         try {
             futuresList = executorService.invokeAll(gausscheSumList);
