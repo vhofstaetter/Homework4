@@ -2,13 +2,13 @@ package net.htlgkr.hove.pos3.hausuebung4;
 
 import java.util.concurrent.Callable;
 
-public class gausscheSum implements Callable<Integer> {
-    public int maximumNumber;
+public class GausscheSum implements Callable<Integer> {
     public int minimumNumber;
+    public int maximumNumber;
 
-    public gausscheSum(int maximumNumber, int minimumNumber) {
-        this.maximumNumber = maximumNumber;
+    public GausscheSum(int minimumNumber, int maximumNumber) {
         this.minimumNumber = minimumNumber;
+        this.maximumNumber = maximumNumber;
     }
 
     @Override
