@@ -13,21 +13,7 @@ public class DividerMain {
         List<Integer> csvFile = dividerMainClass.readCSVFile();
         //List<Integer> dividedList = dividerMainClass.divide(csvFile);
         List<Divider> dividedList = dividerMainClass.divideWithThread(csvFile);
-        dividerMainClass.printDividersList(dividedList);
-
-    }
-
-    public void seprateIntoChunks(List<Integer> integerList) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Type in a divider:");
-        int divider = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Type in, in how many chunks you want to split it:");
-        int chunk = scanner.nextInt();
-        scanner.nextLine();
-        int listSize = integerList.size();
-        int chunkSize = listSize / chunk;
-
+        //dividerMainClass.printDividersList(dividedList);
     }
 
     public List<Integer> divide(List<Integer> numbersList) {
@@ -66,10 +52,16 @@ public class DividerMain {
                 endingPosition = numbersList.size();
                 stillChunksLeft = false;
             }
-            Divider divider1 = new Divider(numbersList.subList(startingPosition, endingPosition), toDevideThrough);
-            dividerList.add(divider1);
+            dividerList.add(new Divider(numbersList.subList(startingPosition, endingPosition), toDevideThrough));
+            counter++;
         }
+        executeAll(dividerList);
+
         return dividerList;
+    }
+
+    public static void executeAll(List<Divider> list) {
+        list.forEach(nc -> new Thread(nc).start());
     }
 
     public List<Integer> readCSVFile() {
@@ -90,7 +82,6 @@ public class DividerMain {
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         }
-
         return numbersList;
     }
 
@@ -98,13 +89,6 @@ public class DividerMain {
         System.out.println("Numbers:");
         for (int i = 0; i < numbersList.size(); i++) {
             System.out.println(numbersList.get(i));
-        }
-    }
-
-    public void printDividersList(List<Divider> dividerList) {
-        System.out.println("Numbers:");
-        for (int i = 0; i < dividerList.size(); i++) {
-            System.out.println(dividerList.get(i));
         }
     }
 }
