@@ -23,7 +23,9 @@ public class Main {
         System.out.println("Type in, in how many chunks you want to split it:");
         int chunk = scanner.nextInt();
         scanner.nextLine();
-        integerList.size();
+        int listSize = integerList.size();
+        int chunkSize = listSize/chunk;
+
     }
 
     public List<Integer> divide(List<Integer> numbersList) {
