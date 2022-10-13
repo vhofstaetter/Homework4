@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class DividerMain {
 
     public static void main(String[] args) {
-        Main mainClass = new Main();
-        List<Integer> csvFile = mainClass.readCSVFile();
-        List<Integer> dividedList = mainClass.divide(csvFile);
-        mainClass.printNumbersList(dividedList);
+        DividerMain dividerMainClass = new DividerMain();
+        List<Integer> csvFile = dividerMainClass.readCSVFile();
+        //List<Integer> dividedList = dividerMainClass.divide(csvFile);
+        List<Divider> dividedList = dividerMainClass.divideWithThread(csvFile);
+        dividerMainClass.printDividersList(dividedList);
+
     }
 
     public void seprateIntoChunks(List<Integer> integerList) {
@@ -24,7 +26,7 @@ public class Main {
         int chunk = scanner.nextInt();
         scanner.nextLine();
         int listSize = integerList.size();
-        int chunkSize = listSize/chunk;
+        int chunkSize = listSize / chunk;
 
     }
 
@@ -41,6 +43,33 @@ public class Main {
             }
         }
         return dividedList;
+    }
+
+    public List<Divider> divideWithThread(List<Integer> numbersList) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type in a divider:");
+        int toDevideThrough = scanner.nextInt();
+
+        System.out.println("Type in in how big should a chunk be:");
+        int chunkSize = scanner.nextInt();
+
+        List<Divider> dividerList = new ArrayList<>();
+        int counter = 0;
+        Divider divider = new Divider(numbersList.subList(0, chunkSize), toDevideThrough);
+        dividerList.add(divider);
+        counter++;
+        boolean stillChunksLeft = true;
+        while (stillChunksLeft) {
+            int startingPosition = chunkSize * counter + 1;
+            int endingPosition = startingPosition + chunkSize;
+            if (endingPosition > numbersList.size()) {
+                endingPosition = numbersList.size();
+                stillChunksLeft = false;
+            }
+            Divider divider1 = new Divider(numbersList.subList(startingPosition, endingPosition), toDevideThrough);
+            dividerList.add(divider1);
+        }
+        return dividerList;
     }
 
     public List<Integer> readCSVFile() {
@@ -69,6 +98,13 @@ public class Main {
         System.out.println("Numbers:");
         for (int i = 0; i < numbersList.size(); i++) {
             System.out.println(numbersList.get(i));
+        }
+    }
+
+    public void printDividersList(List<Divider> dividerList) {
+        System.out.println("Numbers:");
+        for (int i = 0; i < dividerList.size(); i++) {
+            System.out.println(dividerList.get(i));
         }
     }
 }
