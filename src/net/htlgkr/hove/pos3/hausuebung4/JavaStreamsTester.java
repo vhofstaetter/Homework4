@@ -1,11 +1,40 @@
 package net.htlgkr.hove.pos3.hausuebung4;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JavaStreamsTester {
 
     public static void main(String[] args) {
+        List<String> stringsList = new ArrayList<>();
+        stringsList.add("");
+        stringsList.add("Hallo");
+        stringsList.add("");
+        stringsList.add("hhh");
+        stringsList.add("");
+        stringsList.add("Welt");
+        stringsList.add("");
+        stringsList.add("!");
+        stringsList.add("iii");
 
+        List<Integer> integerList = new ArrayList<>();
+        integerList.add(1);
+        integerList.add(15);
+        integerList.add(48);
+        integerList.add(3);
+        integerList.add(17);
+        integerList.add(0);
+        integerList.add(4);
+
+        System.out.println(getCountEmptyStringTester(stringsList));
+        System.out.println(getCountLength3(stringsList));
+        System.out.println(deleteEmptyStrings(stringsList));
+        System.out.println(getMergedString(stringsList, ";"));
+        System.out.println(getSquares(integerList));
+        System.out.println(getMax(integerList));
+        System.out.println(getMin(integerList));
+        System.out.println(getSum(integerList));
+        System.out.println(getAverage(integerList));
     }
 
 
